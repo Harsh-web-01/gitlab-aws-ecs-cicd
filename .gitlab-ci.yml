@@ -1,5 +1,14 @@
-test_npm:
+stages:
+  - build
+
+build_website:
   image: node:22-alpine
+  stage: build
   script:
     - node --version
     - npm --version
+    - ls -la
+    - npm ci #we write npm ci instead of npm install as now npm will install the exact same packages and 
+             #dependencies which are written in the lock-package.json file.
+    - npm run build
+    - ls -la
