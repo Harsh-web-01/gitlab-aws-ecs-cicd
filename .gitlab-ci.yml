@@ -23,7 +23,7 @@ test_website:
     - test -f build/index.html 
 
 unit_tests:
-  image: alpine
+  image: node:22-alpine
   stage: unit
   script:
     - npm ci
