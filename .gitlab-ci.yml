@@ -1,0 +1,5 @@
+test_npm:
+  image: node:22
+  script:
+    - node --version
+    - npm --version
