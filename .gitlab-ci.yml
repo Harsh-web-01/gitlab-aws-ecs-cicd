@@ -1,5 +1,5 @@
 test_npm:
-  image: node:22
+  image: node:22-alpine
   script:
     - node --version
     - npm --version
