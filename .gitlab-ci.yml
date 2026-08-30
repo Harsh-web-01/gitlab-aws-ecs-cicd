@@ -1,6 +1,12 @@
+variables:
+  NETLIFY_SITE_ID: '5cf5db69-9828-4ea0-bffd-a8e3b39340da'
+
 stages:
   - build
   - test
+  - deploy_staging
+  - deploy_prod
+  - .pre
 
 build_website:
   image: node:22-alpine
@@ -31,3 +37,32 @@ unit_tests:
     when: always
     reports:
       junit: reports/junit.xml
+
+netlify_staging:
+  image: node:22-alpine
+  stage: deploy_staging
+  rules:
+    - if: $CI_COMMIT_REF_NAME== $CI_DEFAULT_BRANCH
+  before_script:
+    - npm install -g netlify-cli@20.1.1
+    - apk add curl
+  script:
+    - netlify --version
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --alias staging --dir build
+    - curl 'https://staging--kalkalharsh2-learn-gitlab.netlify.app/'
+
+
+netlify_prod:
+  image: node:22-alpine
+  stage: deploy_prod
+  rules:
+    - if: $CI_COMMIT_REF_NAME== $CI_DEFAULT_BRANCH
+  before_script:
+    - npm install -g netlify-cli@20.1.1
+    - apk add curl
+  script:
+    - netlify --version
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl 'https://kalkalharsh2-learn-gitlab.netlify.app/'
