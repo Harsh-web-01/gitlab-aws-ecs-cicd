@@ -60,7 +60,7 @@ netlify_review:
   script:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
-    - netlify deploy --dir build --json | tee deploy_result.json
+    - netlify deploy --dir build --json | tee deploy-result.json
     - export REVIEW_URL=$(jq -r '.deploy_url' deploy_result.json)
     - echo '$REVIEW_URL'
     - echo "REVIEW_URL = $REVIEW_URL" > deploy.env
