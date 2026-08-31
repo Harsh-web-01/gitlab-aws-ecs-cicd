@@ -11,7 +11,7 @@ test_docker:
   stage: .pre
   image: docker
   services:
-    - docker: dind #docker daemon
+    - docker:dind #docker daemon
   script: 
     - docker --version
     - docker version
