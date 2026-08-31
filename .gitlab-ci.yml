@@ -87,7 +87,6 @@ netlify_staging:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
     - netlify deploy --alias staging --dir build
-    - curl $CI_ENVIRONMENT_URL | grep 'Gitlab'
 
 
 netlify_prod:
@@ -106,4 +105,3 @@ netlify_prod:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
     - netlify deploy --prod --dir build
-    - curl CI_ENVIRONMENT_URL | grep 'Gitlab'
