@@ -48,24 +48,22 @@ unit_tests:
 
 netlify_review:
   image: node:22-alpine
-  stage: .pre
+  stage: deploy_review
   environment:
     name: preview/$CI_COMMIT_REF_SLUG
-    url: $PREVIEW_URL
+    url: $REVIEW_URL
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
   before_script:
     - npm install -g netlify-cli@20.1.1
     - apk add curl jq
-    - mkdir build
-    - echo "Test" > build/index.html
   script:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
-    - netlify deploy --dir build --json > deploy_result.json
+    - netlify deploy --dir build --json | tee deploy_result.json
     - export REVIEW_URL=$(jq -r '.deploy_url' deploy_result.json)
     - echo '$REVIEW_URL'
-    - echo "PREVIEW_URL = $REVIEW_URL" > deploy.env
+    - echo "REVIEW_URL = $REVIEW_URL" > deploy.env
     - cat deploy.env
   artifacts:
     reports:
