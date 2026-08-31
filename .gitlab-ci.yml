@@ -48,16 +48,28 @@ unit_tests:
 
 netlify_review:
   image: node:22-alpine
-  stage: deploy_review
+  stage: .pre
+  environment:
+    name: preview/$CI_COMMIT_REF_SLUG
+    url: $PREVIEW_URL
   rules:
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
   before_script:
     - npm install -g netlify-cli@20.1.1
-    - apk add curl
+    - apk add curl jq
+    - mkdir build
+    - echo "Test" > build/index.html
   script:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
-    - netlify deploy --dir build
+    - netlify deploy --dir build --json > deploy_result.json
+    - export REVIEW_URL=$(jq -r '.deploy_url' deploy_result.json)
+    - echo '$REVIEW_URL'
+    - echo "PREVIEW_URL = $REVIEW_URL" > deploy.env
+    - cat deploy.env
+  artifacts:
+    reports:
+      dotenv: deploy.env
 
 
 netlify_staging:
@@ -65,6 +77,9 @@ netlify_staging:
   stage: deploy_staging
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: staging
+    url: 'https://staging--kalkalharsh2-learn-gitlab.netlify.app/'
   before_script:
     - npm install -g netlify-cli@20.1.1
     - apk add curl
@@ -72,7 +87,7 @@ netlify_staging:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
     - netlify deploy --alias staging --dir build
-    - curl 'https://staging--kalkalharsh2-learn-gitlab.netlify.app/'
+    - curl $CI_ENVIRONMENT_URL | grep 'Gitlab'
 
 
 netlify_prod:
@@ -81,6 +96,9 @@ netlify_prod:
   when: manual #creates a continuous delivery pipeline in which we will be manually pressing a run button to run the production job.
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://kalkalharsh2-learn-gitlab.netlify.app/'
   before_script:
     - npm install -g netlify-cli@20.1.1
     - apk add curl
@@ -88,4 +106,4 @@ netlify_prod:
     - netlify --version
     - echo "Deploying to site id $NETLIFY_SITE_ID"
     - netlify deploy --prod --dir build
-    - curl 'https://kalkalharsh2-learn-gitlab.netlify.app/'
+    - curl CI_ENVIRONMENT_URL | grep 'Gitlab'
