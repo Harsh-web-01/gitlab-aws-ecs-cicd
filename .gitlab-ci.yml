@@ -21,4 +21,4 @@ aws_s3:
  script:
    - aws --version
    - echo "<h1>Hello</h1>" > index.html
-   - aws s3 cp index.html s3://aws-s3-bucket-gitlab-v1/index.html
+   - aws s3 cp index.html s3://$AWS_S3_BUCKET/index.html
