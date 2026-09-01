@@ -1,25 +1,5 @@
 variables:
-  NETLIFY_SITE_ID: '5cf5db69-9828-4ea0-bffd-a8e3b39340da'
   VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
-
-stages:
-  - build
-  - deploy
-  - .pre
-
-build_docker_netlify:
-  stage: .pre
-  image: docker:27
-  services:
-    - docker:27-dind #docker daemon
-  script: 
-    - docker --version
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE/netlify:18.0.0 -f Dockerfile .
-    - docker image ls
-    - docker push $CI_REGISTRY_IMAGE/netlify:18.0.0
-
-
 
 build_website:
   image: node:22-alpine
@@ -33,14 +13,10 @@ build_website:
     paths: 
       - build/
 
-netlify_prod:
-  image: $CI_REGISTRY_IMAGE/netlify:18.0.0
-  stage: deploy
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  environment: production
-  script:
-    - netlify --version
-    - netlify status
-    - echo "Deploying to site id $NETLIFY_SITE_ID"
-    - netlify deploy --prod --dir build
+aws_s3:
+ stage: .pre
+ image: 
+  name: amazon/aws-cli:2.23.0
+  entrypoint: [""] #by default after installation, docker writes aws but we have aws --version in the script so gitlab would write aws aws --version and this command will give an error. therefore we type this which says gitlab should initially write nothing and execute our script.
+ script:
+   - aws --version
