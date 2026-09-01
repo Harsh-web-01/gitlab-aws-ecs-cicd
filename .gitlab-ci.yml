@@ -7,14 +7,16 @@ stages:
   - deploy
   - .pre
 
-test_docker:
+build_docker_netlify:
   stage: .pre
-  image: docker
+  image: docker:27
   services:
-    - docker:dind #docker daemon
+    - docker:27-dind #docker daemon
   script: 
     - docker --version
     - docker version
+    - docker build -t netlify -f Dockerfile .
+    - docker image ls
 
 
 
