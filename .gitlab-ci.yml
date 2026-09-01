@@ -15,9 +15,9 @@ build_docker_netlify:
   script: 
     - docker --version
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE/netlify -f Dockerfile .
+    - docker build -t $CI_REGISTRY_IMAGE/netlify:18.0.0 -f Dockerfile .
     - docker image ls
-    - docker push $CI_REGISTRY_IMAGE/netlify
+    - docker push $CI_REGISTRY_IMAGE/netlify:18.0.0
 
 
 
@@ -34,7 +34,7 @@ build_website:
       - build/
 
 netlify_prod:
-  image: $CI_REGISTRY_IMAGE/netlify
+  image: $CI_REGISTRY_IMAGE/netlify:18.0.0
   stage: deploy
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
@@ -44,4 +44,3 @@ netlify_prod:
     - netlify status
     - echo "Deploying to site id $NETLIFY_SITE_ID"
     - netlify deploy --prod --dir build
-    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
