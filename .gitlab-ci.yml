@@ -1,5 +1,5 @@
 variables:
-  NETLIFY_SITE_ID: 'FIXME: YOUR SITE ID'
+  NETLIFY_SITE_ID: '5cf5db69-9828-4ea0-bffd-a8e3b39340da'
   VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
 
 stages:
@@ -15,8 +15,9 @@ build_docker_netlify:
   script: 
     - docker --version
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t netlify -f Dockerfile .
+    - docker build -t $CI_REGISTRY_IMAGE/netlify -f Dockerfile .
     - docker image ls
+    - docker push $CI_REGISTRY_IMAGE/netlify
 
 
 
