@@ -34,14 +34,11 @@ build_website:
       - build/
 
 netlify_prod:
-  image: node:22-alpine
+  image: $CI_REGISTRY_IMAGE/netlify
   stage: deploy
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   environment: production
-  before_script: 
-    - npm install -g netlify-cli
-    - apk add curl
   script:
     - netlify --version
     - netlify status
