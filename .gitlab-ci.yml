@@ -14,7 +14,7 @@ build_website:
       - build/
 
 build_docker_image:
-  stage: package
+  stage: build
   image: 
     name: amazon/aws-cli:2.23.0
     entrypoint: [""]
