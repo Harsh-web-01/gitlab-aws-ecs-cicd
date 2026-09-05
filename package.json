@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "vite build",
     "test": "vitest",
-    "e2e": "npx playwright test",
     "lint": "eslint --format gitlab .",
     "preview": "vite preview"
   },
@@ -17,7 +16,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@playwright/test": "^1.49.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
