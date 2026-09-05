@@ -46,15 +46,8 @@ Running Application on Fargate
 
 ## 🏗️ Architecture
 
-<p align="center">
-  <a href="./docs/gitlab-ecs-architecture.png">
-    <img src="./docs/gitlab-ecs-architecture.png" alt="GitLab CI/CD to AWS ECS Fargate architecture" width="1100">
-  </a>
-</p>
+<img width="1942" height="809" alt="ChatGPT Image Sep 6, 2026 at 01_36_50 AM" src="https://github.com/user-attachments/assets/1369ebf8-d0f3-4e53-8665-9f779f60ec92" />
 
-> **Click the architecture diagram to open the full-resolution version.**
-
-**[Add/replace the architecture image in `docs/gitlab-ecs-architecture.png` if needed.]**
 
 The architecture highlights the main responsibility of this project: **GitLab acts as the CI/CD orchestration layer while AWS provides the container registry and runtime environment.**
 
@@ -75,7 +68,8 @@ The pipeline is divided into four logical stages:
 
 ### Pipeline orchestration
 
-**[Add your GitLab pipeline screenshot here]**
+<img width="2213" height="1309" alt="96E789DB-62DB-43E0-9612-9A42131FEE96_1_201_a" src="https://github.com/user-attachments/assets/70b8d29c-9d52-4776-8e45-e5d2dc250d81" />
+
 
 ---
 
@@ -170,7 +164,8 @@ reports/junit.xml
 
 GitLab then displays the test results directly in the pipeline interface.
 
-**[Add your GitLab JUnit test-results screenshot here]**
+<img width="2156" height="1303" alt="06DB9E17-FFA3-43C3-946A-36DF08A34909_1_201_a" src="https://github.com/user-attachments/assets/edc22467-db79-4a5d-b143-71cb4c85ff61" />
+
 
 ---
 
