@@ -1,6 +1,11 @@
 variables:
   VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
 
+stages:
+  - build
+  - package
+  - deploy
+
 build_website:
   image: node:22-alpine
   stage: build
@@ -14,7 +19,7 @@ build_website:
       - build/
 
 build_docker_image:
-  stage: build
+  stage: package
   image: 
     name: amazon/aws-cli:2.23.0
     entrypoint: [""]
