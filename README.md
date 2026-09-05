@@ -246,7 +246,7 @@ So for a small project image, **ECR storage for one day is effectively negligibl
 
 ### Cost takeaway
 
-For this small learning project, **Fargate is the primary recurring cost** among the two services considered.
+ **Fargate is the primary recurring cost** among the two services considered.
 
 If the application is no longer needed, stopping/deleting the ECS service/tasks is important because Fargate compute charges continue while tasks are running.
 
@@ -288,25 +288,4 @@ If the application is no longer needed, stopping/deleting the ECS service/tasks 
 - GitLab CI/CD variables
 - JUnit test reporting
 - Containerized application deployment
-
----
-
-## 🔮 Future Improvements
-
-- Provision the ECS, ECR and networking infrastructure using **Terraform**
-- Replace long-lived AWS access keys with **GitLab OIDC**
-- Move testing before deployment as a deployment gate
-- Use immutable commit-SHA image tags directly in ECS
-- Add ECS deployment rollback/circuit-breaker handling
-- Add HTTPS using an Application Load Balancer + ACM
-- Add container vulnerability/security scanning
-- Add end-to-end testing with Playwright
-
----
-
-## 👨‍💻 Author
-
-**Harsh Kalkal**
-
-A hands-on project focused on **DevOps, AWS, containerization and GitLab CI/CD automation**.
 
