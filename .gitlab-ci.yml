@@ -32,9 +32,9 @@ build_docker_image:
   script:
     - aws --version
     - docker version
-    - docker build -t $DOCKER_REGISTRY/learngitlabapp:$VITE_APP_VERSION .
+    - docker build -t $DOCKER_REGISTRY/learngitlabapp:$VITE_APP_VERSION . -t $DOCKER_REGISTRY/learngitlabapp .
     - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY 
-    - docker push $DOCKER_REGISTRY/learngitlabapp:$VITE_APP_VERSION
+    - docker push --all-tags $DOCKER_REGISTRY/learngitlabapp
 
 ecs_deploy:
  stage: deploy
