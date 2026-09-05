@@ -24,4 +24,4 @@ ecs_deploy:
    - aws --version
    - aws ecs register-task-definition --cli-input-json file://aws/td_prod.json
    - aws ecs update-service --cluster LearnGitlabApp-Cluster-Prod --service LearnGitlabApp-Service-Prod --task-definition LearnGitlabAppTo-Prod
-   - aws ecs wait services-stable --cluster LearnGitlabAppCluster-Prod --services LearnGitlabApp-Service-Prod
+   - aws ecs wait services-stable --cluster LearnGitlabApp-Cluster-Prod --services LearnGitlabApp-Service-Prod
